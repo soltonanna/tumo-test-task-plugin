@@ -5,7 +5,7 @@ A WordPress plugin to manage and display books with custom fields, related book 
 ## Features
 
 - **Custom Post Type**: Allows adding and managing books with fields for author, genre, ISBN, and publication year.
-- **Shortcode**: `[display_books]` shortcode for displaying books on any page or post.
+- **Shortcode**: `[book_list]` shortcode for displaying books on any page or post.
 - **Related Books Widget**: Display related books by genre or show the latest added books.
 - **Flexible Customization**: Template and widget-based customization for easy integration.
 
@@ -16,10 +16,10 @@ A WordPress plugin to manage and display books with custom fields, related book 
 
 ## Usage
 
-Use the `[display_books]` shortcode to list books on pages or posts.
+Use the `[book_list]` shortcode to list books on pages or posts.
 
 To show related books, go to **Appearance > Widgets** and add the Related Books widget.
 
-## License
+## Author
 
-This project is licensed under the MIT License.
+Sultanova Anahit
