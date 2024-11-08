@@ -1,0 +1,251 @@
+@import "defaults/variables";
+@import "defaults/mixins";
+@import "defaults/typography";
+@import "defaults/defaults";
+
+
+.book-list {
+    @include displayGrid(1fr 1fr 1fr 1fr, 1fr, center, center, center, center);
+    gap: 50px;
+    width: 100%;
+    margin: 50px auto;
+    max-width: 1084px;
+
+    @include respond(tab-port) {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @include respond(phone) {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .book-item {
+        width: 100%;
+        height: 100%;
+
+        &__thumbnail {
+            margin-bottom: 10px;
+
+            img {
+                width: 100%;
+                max-height: 324px;
+                object-fit: cover;
+            }
+        }
+
+        &__title, 
+        a.font_h3 {
+            color: $text-color;
+            text-align: left;
+        }
+
+        &__author {
+            color: $secondary-color;
+            margin-top: 5px;
+        }
+    }
+}
+
+.pagination {
+    @include displayFlex(row, nowrap, center, space-between, center);
+    gap: 15px;
+    width: max-content;
+    margin: 0 auto;
+
+    .page-numbers {
+        color: $text-color;
+        padding: 5.5px 14.5px;
+        border-radius: 5px;
+        font-weight: 400;
+        min-width: 35px;
+        min-height: 35px;
+        line-height: 22px;
+
+        &:not(.next,.prev) {
+            border: 1px solid $secondary-color;
+        }
+
+        &.current {
+            border: 2px solid $primary-color;
+            background-color: $primary-color;
+            font-weight: 600;
+        }
+
+        &.next, 
+        &.prev {
+            span {
+                display: block;
+                position: relative;
+                width: 12px;
+                height: 18px;
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: url('../../images/arrow-black.svg') no-repeat center;
+                    background-size: contain;
+                    z-index: -1; 
+    
+                }
+            }
+            
+        }
+        &.next {
+            span {
+                transform: rotate(180deg);
+            }
+            
+        }  
+        &.prev {
+            span {
+                transform: rotate(0deg);
+            }
+        }      
+    }
+
+}
+
+
+
+.single-book-page {
+    padding-left: 75px;
+
+    .top-section {
+        @include displayGrid(2.2fr 1fr, 1fr, start, start, start, start);
+        gap: 61px;
+        width: 100%;
+        margin-bottom: 20px;
+
+        @include respond(tab-port) {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .single-book-info {
+            @include displayFlex(row, nowrap, flex-start, flex-start, flex-start);
+            gap: 24px;
+
+            .book-thumbnail {
+                width: 309px;
+                margin-bottom: 32px;
+            }
+            .book-author {
+                font-size: 18px;
+                font-weight: 400;
+                line-height: 140%;
+                color: $text-color;
+            }
+            .book-title {
+                text-align: left;
+                margin-bottom: 15px;
+            }
+            .book-description {
+                margin-top: 40px;
+                max-width: 420px;
+
+                @include respond(tab-port) {
+                    max-width: 100%;
+                }
+            }
+            .book-info {
+                * {
+                    font-size: 18px;
+                    line-height: 140%;
+                }
+                span {
+                    font-weight: 700;
+                }
+                p {
+                    &:not(:last-child) {
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+        }
+
+        .related-books {
+            border: 1px solid $secondary-light-color;
+            padding: 20px 25px;
+            width: 100%;
+
+            h2 {
+                margin-bottom: 46px;
+                text-align: left;
+            }
+
+            .book-list {
+                @include displayFlex(column, nowrap, flex-start, flex-start, flex-start);
+                gap: 20px;
+            }
+        }
+    }
+
+    .bottom-section {
+        .find-more {
+            .section-title {
+                text-align: left;
+            }
+            .book-list {
+                margin: 60px 0;
+            }
+        }
+    }
+}
+
+
+.widget-area {
+    .widget-title {
+        text-align: left;
+        margin-bottom: 46px;
+    }
+}
+
+.related-books-list {
+    @include displayFlex(column, nowrap, flex-start, flex-start, flex-start);
+    gap: 20px;
+
+    .related-book-item {
+        @include displayFlex(row, nowrap, flex-start, flex-start, center);
+        gap: 16px;
+
+        * {
+            font-weight: 500;
+        }
+
+        .book-thumbnail {
+            width: 100px;
+            height: 160px;
+        }
+
+        .book-details {
+            @include displayFlex(column, nowrap, flex-start, flex-start, flex-start);
+            gap: 20px;
+
+            .book-title {
+                a {
+                    font-size: 18px;
+                    color: $text-color;
+                }
+            }
+            .book-author {
+                font-size: 14px;
+                color: $secondary-color;
+            }
+
+            .more-button {
+                position: relative;
+                color: $primary-color;
+
+                &::after {
+                    position: absolute;
+                    content: "\2794";
+                    color: $primary-color;
+                    padding-left: 10px;
+                }
+            }
+        }
+    }
+}

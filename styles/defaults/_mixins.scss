@@ -1,0 +1,33 @@
+@mixin respond($breakpoint) {
+    @if $breakpoint == phone {
+        @media only screen and (max-width: 37em) { @content };   // 425px
+    }
+    @if $breakpoint == tab-port {
+        @media only screen and (max-width: 65em) { @content };   // 1024px
+    }
+    @if $breakpoint == tab-land {
+        @media only screen and (max-width: 95em) { @content };   // 1440
+    }
+    @if $breakpoint == big-desktop {
+        @media only screen and (min-width: 112.5em) { @content }; // >1800
+    }
+}
+
+@mixin displayFlex($flDirection, $flWrap, $flAContent, $flJContent, $flAAtimes) {
+    display: flex;
+    flex-direction: $flDirection;
+    flex-wrap: $flWrap;
+    align-content: $flAContent;
+    justify-content: $flJContent;
+    align-items: $flAAtimes;
+}
+
+@mixin displayGrid($templateCol, $templateRow, $flAContent, $flJContent, $flAAtimes, $flJItems) {
+    display: grid; 
+    grid-template-columns: $templateCol; 
+    grid-template-rows: $templateRow; 
+    align-items: $flAContent;
+    justify-content: $flJContent;
+    align-content: $flAAtimes;
+    justify-items: $flJItems;
+}
