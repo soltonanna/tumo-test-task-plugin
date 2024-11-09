@@ -42,6 +42,7 @@
         &__author {
             color: $secondary-color;
             margin-top: 5px;
+            text-align: left;
         }
     }
 }
@@ -61,7 +62,7 @@
         min-height: 35px;
         line-height: 22px;
 
-        &:not(.next,.prev) {
+        &:not(.next,.prev, .current) {
             border: 1px solid $secondary-color;
         }
 

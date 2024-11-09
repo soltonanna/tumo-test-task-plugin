@@ -28,5 +28,4 @@ if ( isset( $books ) && $books->have_posts() ) : ?>
 <?php endif; ?>
 
 <?php
-// Reset post data after the loop
 wp_reset_postdata();
