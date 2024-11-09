@@ -15,11 +15,13 @@ class Custom_Book_Plugin {
         add_action( 'init', [ $this, 'register_book_genre_taxonomy' ] );
         add_action( 'add_meta_boxes', [ $this, 'add_book_meta_box' ] );
         add_action( 'save_post', [ $this, 'save_book_meta_box_data' ] );
+        add_action( 'widgets_init', [ $this, 'books_plugin_widgets_init' ] );
 
         add_shortcode( 'book_list', [ $this, 'display_books_shortcode' ] );
 
         add_filter( 'single_template', [ $this, 'custom_single_template' ] );
     }
+
 
     /**** 
      * Register "Book" Custom Post Type 
@@ -42,10 +44,11 @@ class Custom_Book_Plugin {
         register_post_type( 'book', $args );
     }
 
+
     /****
      * Register "Book Genre" Taxonomy
      * 
-    * */
+    */
     public function register_book_genre_taxonomy() {
         register_taxonomy( 'book_genre', 'book', [
             'label' => 'Book Genres',
@@ -54,10 +57,11 @@ class Custom_Book_Plugin {
         ] );
     }
 
+
     /**** 
      * Add Meta Box for Custom Fields 
      * 
-    * */
+    */
     public function add_book_meta_box() {
         add_meta_box( 
             'book_meta_box', 
@@ -69,6 +73,7 @@ class Custom_Book_Plugin {
             'book' 
         );
     }
+
 
     /**** 
      * Meta Box Callback Function 
@@ -90,10 +95,11 @@ class Custom_Book_Plugin {
         }
     }
 
+
     /****
      * Save Meta Box Data 
      * 
-    * */
+    */
     public function save_book_meta_box_data( $post_id ) {
         if ( ! isset( $_POST['book_meta_box_nonce'] ) || ! wp_verify_nonce( $_POST['book_meta_box_nonce'], 'save_book_meta_box_data' ) ) return;
 
@@ -110,17 +116,22 @@ class Custom_Book_Plugin {
         }
     }
 
+
     /**** 
      * Short-code to Display Books List 
      * 
-    * */
-    public function display_books_shortcode() {
+    */
+    public function display_books_shortcode($atts) {
+        $atts = shortcode_atts([
+            'posts_per_page' => 8,
+        ], $atts, 'book_list');
+
         $output = '<h2>Books</h2>';
         
         $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
         $books = new WP_Query([
             'post_type'      => 'book',
-            'posts_per_page' => 8,
+            'posts_per_page' => intval($atts['posts_per_page']),
             'paged'          => $paged,
         ]);
 
@@ -145,7 +156,6 @@ class Custom_Book_Plugin {
     }
     
     
-
     /**** 
      * Custom Single Template for "Book" Post Type 
      * 
@@ -162,6 +172,21 @@ class Custom_Book_Plugin {
     
         return $single_template;
     }
+
+    /**** 
+     * Register the "Books Sidebar" for the plugin
+     * 
+    */
+    public function books_plugin_widgets_init() {
+        register_sidebar( array(
+            'name'          => 'Books Sidebar',
+            'id'            => 'sidebar-1',
+            'before_widget' => '<div class="widget %2$s">',
+            'after_widget'  => '</div>',
+            'before_title'  => '<h3 class="widget-title">',
+            'after_title'   => '</h3>',
+        ) );
+    }
 }
 
 new Custom_Book_Plugin();
@@ -169,8 +194,7 @@ new Custom_Book_Plugin();
 
 /***** 
  * Include the widget class file
- *  
- * And add the widget
+ * 
 */
 require_once plugin_dir_path( __FILE__ ) . 'includes/related-books-widget.php';
 
@@ -181,11 +205,10 @@ if ( ! function_exists( 'register_related_books_widget' ) ) {
 }
 add_action( 'widgets_init', 'register_related_books_widget' );
 
-
 /**** 
  * Enqueue CSS file 
  * 
-* */
+*/
 function custom_book_plugin_enqueue_assets() {
     wp_enqueue_style(
         'custom-book-plugin-style',
