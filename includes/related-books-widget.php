@@ -85,16 +85,39 @@ class Related_Books_Widget extends WP_Widget {
         $show_by = ! empty( $instance['show_by'] ) ? $instance['show_by'] : 'latest'; // 'genre' or 'latest'
         ?>
         <p>
-            <label for="<?php echo $this->get_field_id( 'title' ); ?>">Title:</label>
-            <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+            <label for="<?php echo $this->get_field_id( 'title' ); ?>">
+                Title:
+            </label>
+            <input 
+                class="widefat" 
+                type="text" 
+                id="<?php echo $this->get_field_id( 'title' ); ?>" 
+                name="<?php echo $this->get_field_name( 'title' ); ?>" 
+                value="<?php echo esc_attr( $title ); ?>" 
+            />
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'num_books' ); ?>">Number of books to show:</label>
-            <input class="widefat" id="<?php echo $this->get_field_id( 'num_books' ); ?>" name="<?php echo $this->get_field_name( 'num_books' ); ?>" type="number" value="<?php echo esc_attr( $num_books ); ?>" min="1" max="10" />
+            <label for="<?php echo $this->get_field_id( 'num_books' ); ?>">
+                Number of books to show:
+            </label>
+            <input 
+                class="widefat" 
+                type="number" 
+                id="<?php echo $this->get_field_id( 'num_books' ); ?>" 
+                name="<?php echo $this->get_field_name( 'num_books' ); ?>" 
+                value="<?php echo esc_attr( $num_books ); ?>" 
+                min="1" max="10" 
+            />
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'show_by' ); ?>">Show books by:</label>
-            <select class="widefat" id="<?php echo $this->get_field_id( 'show_by' ); ?>" name="<?php echo $this->get_field_name( 'show_by' ); ?>">
+            <label for="<?php echo $this->get_field_id( 'show_by' ); ?>">
+                Show books by:
+            </label>
+            <select 
+                class="widefat" 
+                id="<?php echo $this->get_field_id( 'show_by' ); ?>" 
+                name="<?php echo $this->get_field_name( 'show_by' ); ?>"
+            >
                 <option value="latest" <?php selected( $show_by, 'latest' ); ?>>Latest Added</option>
                 <option value="genre" <?php selected( $show_by, 'genre' ); ?>>Same Genre as Current Book</option>
             </select>
