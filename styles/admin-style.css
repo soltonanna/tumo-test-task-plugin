@@ -1,0 +1,16 @@
+#book_meta_box .inside label {
+    font-weight: bold;
+    margin-right: 10px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+
+#book_meta_box .inside input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}

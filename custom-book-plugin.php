@@ -206,7 +206,7 @@ if ( ! function_exists( 'register_related_books_widget' ) ) {
 add_action( 'widgets_init', 'register_related_books_widget' );
 
 /**** 
- * Enqueue CSS file 
+ * Enqueue CSS files 
  * 
 */
 function custom_book_plugin_enqueue_assets() {
@@ -219,3 +219,11 @@ function custom_book_plugin_enqueue_assets() {
     );
 }
 add_action( 'wp_enqueue_scripts', 'custom_book_plugin_enqueue_assets' );
+
+function enqueue_admin_styles() {
+    wp_enqueue_style( 
+        'book-meta-box-admin-style', 
+        plugin_dir_url( __FILE__ ) . 'styles/admin-style.css' 
+    );
+}
+add_action( 'admin_enqueue_scripts', 'enqueue_admin_styles' );

@@ -21,5 +21,9 @@ Use the `[book_list]` shortcode to list books on pages or posts.
 To show related books, go to **Appearance > Widgets** and add the Related Books widget.
 
 ## Author
-
 Sultanova Anahit
+
+<img src="images/screenshots/AdminSingleBook.png" /><br />
+<img src="images/screenshots/AdminWidgets.png" /><br /><br />
+<img src="images/screenshots/BooksList.jpg" /><br />
+<img src="images/screenshots/SingleBooks.jpg" /><br />
