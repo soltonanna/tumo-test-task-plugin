@@ -2,7 +2,7 @@
 /*
 Plugin Name: Custom Book Plugin
 Description: Adds a "Book" custom post type with custom fields and taxonomy.
-Version: 1.0.6
+Version: 1.0.7
 Author: Anahit Sultanova
 */
 
@@ -233,15 +233,7 @@ add_action( 'admin_enqueue_scripts', 'enqueue_admin_styles' );
 require plugin_dir_path(__FILE__) . 'vendor/autoload.php';
 
 $myUpdateChecker = \YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
-    'https://github.com/soltonanna/tumo-test-task-plugin',
+    'https://yourdomain.com/update-check.json', // public URL to your JSON file
     __FILE__,
     'tumo-test-task-plugin'
 );
-
-// Optional: Set branch if using one
-$myUpdateChecker->setBranch('master');
-
-// 🔥 Force plugin to use the correct ZIP file (from your release!)
-$myUpdateChecker->setUpdateUrl('https://github.com/soltonanna/tumo-test-task-plugin/releases/latest/download/tumo-test-task-plugin.zip');
-$myUpdateChecker->setDownloadUrl('https://github.com/soltonanna/tumo-test-task-plugin/releases/latest/download/tumo-test-task-plugin.zip');
-

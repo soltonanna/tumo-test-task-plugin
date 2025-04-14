@@ -34,3 +34,6 @@ Adds a "Book" custom post type with custom fields and taxonomy.
 
 = 1.0.6 =
 * New code for checking and fix versions
+
+= 1.0.7 =
+* Change the structure of checking version
