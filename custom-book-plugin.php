@@ -227,3 +227,16 @@ function enqueue_admin_styles() {
     );
 }
 add_action( 'admin_enqueue_scripts', 'enqueue_admin_styles' );
+
+
+
+require plugin_dir_path(__FILE__) . 'plugin-update-checker/plugin-update-checker.php';
+
+$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+    'https://github.com/soltonanna/tumo-test-task-plugin',
+    __FILE__,
+    'tumo-test-task-plugin'
+);
+
+// Optional: If your branch is "main" or "dev", set it like this
+$myUpdateChecker->setBranch('main');
