@@ -28,3 +28,9 @@ Adds a "Book" custom post type with custom fields and taxonomy.
 
 = 1.0.4 =
 * Testing
+
+= 1.0.5 =
+* New code for checking
+
+= 1.0.6 =
+* New code for checking and fix versions
