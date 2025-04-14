@@ -2,7 +2,7 @@
 /*
 Plugin Name: Custom Book Plugin
 Description: Adds a "Book" custom post type with custom fields and taxonomy.
-Version: 1.0.3
+Version: 1.0.4
 Author: Anahit Sultanova
 */
 
