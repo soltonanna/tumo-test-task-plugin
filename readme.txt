@@ -19,3 +19,6 @@ Adds a "Book" custom post type with custom fields and taxonomy.
 = 1.0.1 =
 * Added update checker.
 * Minor improvements.
+
+= 1.0.2 =
+* Update the checker.
