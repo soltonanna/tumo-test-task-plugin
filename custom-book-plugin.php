@@ -238,4 +238,10 @@ $myUpdateChecker = \YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateCh
     'tumo-test-task-plugin'
 );
 
+// Optional: Set branch if using one
 $myUpdateChecker->setBranch('master');
+
+// 🔥 Force plugin to use the correct ZIP file (from your release!)
+$myUpdateChecker->setUpdateUrl('https://github.com/soltonanna/tumo-test-task-plugin/releases/latest/download/tumo-test-task-plugin.zip');
+$myUpdateChecker->setDownloadUrl('https://github.com/soltonanna/tumo-test-task-plugin/releases/latest/download/tumo-test-task-plugin.zip');
+
