@@ -2,7 +2,7 @@
 /*
 Plugin Name: Custom Book Plugin
 Description: Adds a "Book" custom post type with custom fields and taxonomy.
-Version: 1.0.2
+Version: 1.0.3
 Author: Anahit Sultanova
 */
 
@@ -229,7 +229,7 @@ function enqueue_admin_styles() {
 add_action( 'admin_enqueue_scripts', 'enqueue_admin_styles' );
 
 
-
+/** Checking the updates of plugin with tag  */
 require plugin_dir_path(__FILE__) . 'vendor/autoload.php';
 
 $myUpdateChecker = \YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
@@ -238,5 +238,4 @@ $myUpdateChecker = \YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateCh
     'tumo-test-task-plugin'
 );
 
-// Optional: If your branch is "main" or "dev", set it like this
 $myUpdateChecker->setBranch('master');
