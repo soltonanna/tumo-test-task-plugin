@@ -2,7 +2,7 @@
 /*
 Plugin Name: Custom Book Plugin
 Description: Adds a "Book" custom post type with custom fields and taxonomy.
-Version: 1.1.3
+Version: 1.1.4
 Author: Anahit Sultanova
 */
 
@@ -230,20 +230,19 @@ add_action( 'admin_enqueue_scripts', 'enqueue_admin_styles' );
 
 
 /** Checking the updates of plugin with tag  */
-require plugin_dir_path(__FILE__) . 'plugin-update-checker/plugin-update-checker.php';
+require 'plugin-update-checker/plugin-update-checker.php';
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
-$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-    'https://github.com/soltonanna/tumo-test-task-plugin',
-    __FILE__,
-    'tumo-test-task-plugin'
+$myUpdateChecker = PucFactory::buildUpdateChecker(
+	'https://github.com/soltonanna/tumo-test-task-plugin/',
+	__FILE__,
+	'tumo-test-task-plugin'
 );
 
-$myUpdateChecker->addResultFilter(function($update, $plugin) {
-    error_log(print_r($update, true));
-    return $update;
-});
+$myUpdateChecker->getVcsApi()->enableReleaseAssets();
 
-// use TOKEN for private repos
-//$myUpdateChecker->setAuthentication('');
-
+//Set the branch that contains the stable release.
 $myUpdateChecker->setBranch('master');
+
+//Optional: If you're using a private repository, specify the access token like this:
+// $myUpdateChecker->setAuthentication('your-token-here');
