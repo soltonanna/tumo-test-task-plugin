@@ -1,8 +1,0 @@
-{
-	"name" : "Custom Book Plugin",
-	"version" : "1.1.6",
-	"download_url" : "https://github.com/soltonanna/tumo-test-task-plugin/archive/refs/tags/v1.1.6.zip",
-	"sections" : {
-		"description" : "Adds a 'Book' custom post type with custom fields and taxonomy."
-	}
-}
