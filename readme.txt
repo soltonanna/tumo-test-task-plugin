@@ -43,3 +43,6 @@ Adds a "Book" custom post type with custom fields and taxonomy.
 
 = 1.2.0 =
 * test the second way to check the versions
+
+= 1.2.1 =
+* refactor the code

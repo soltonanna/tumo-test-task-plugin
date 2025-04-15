@@ -2,7 +2,7 @@
 /*
 Plugin Name: Custom Book Plugin
 Description: Adds a "Book" custom post type with custom fields and taxonomy.
-Version: 1.2.0
+Version: 1.2.1
 Author: Anahit Sultanova
 */
 
@@ -229,46 +229,54 @@ function enqueue_admin_styles() {
 add_action( 'admin_enqueue_scripts', 'enqueue_admin_styles' );
 
 
-/** Checking the updates of plugin with tag  */
-// VERSION 1:
-// require 'plugin-update-checker/plugin-update-checker.php';
+/** 
+ * Checking the updates of plugin with tag/latest release 
+ **/
 
-// use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
-
-// $myUpdateChecker = PucFactory::buildUpdateChecker(
-//     'https://github.com/soltonanna/tumo-test-task-plugin/',
-//     __FILE__,
-//     'tumo-test-task-plugin'
-// );
-
-// $myUpdateChecker->getVcsApi()->enableReleaseAssets();
-// $myUpdateChecker->setBranch('master');
-// $myUpdateChecker->setAuthentication('your-token-here');
-
-// VERSION 2:
+// define('GITHUB_TOKEN', 'your_personal_access_token'); 
 add_filter('pre_set_site_transient_update_plugins', 'check_github_plugin_update');
 function check_github_plugin_update($transient) {
     if (empty($transient->checked)) return $transient;
 
+    // Plugin settings (change per plugin)
     $plugin_slug = 'tumo-test-task-plugin/tumo-test-task-plugin.php';
-    $repo_api_url = 'https://github.com/soltonanna/tumo-test-task-plugin/releases/latest';
+    $plugin_path = WP_PLUGIN_DIR . '/' . $plugin_slug;
+    $github_api_url = 'https://github.com/soltonanna/tumo-test-task-plugin/releases/latest';
 
-    $response = wp_remote_get($repo_api_url, [
-        'headers' => ['Accept' => 'application/vnd.github.v3+json']
+    // Basic headers
+    $headers = [
+        'Accept' => 'application/vnd.github.v3+json',
+        'User-Agent' => 'WordPress/' . get_bloginfo('version'),
+    ];
+
+    // Add token only if defined (for private repos)
+    if (defined('GITHUB_TOKEN') && GITHUB_TOKEN) {
+        $headers['Authorization'] = 'token ' . GITHUB_TOKEN;
+    }
+
+    // Request GitHub API
+    $response = wp_remote_get($github_api_url, [
+        'headers' => $headers
     ]);
 
     if (is_wp_error($response)) return $transient;
 
-    $release = json_decode(wp_remote_retrieve_body($response));
-    $latest_version = ltrim($release->tag_name, 'v'); // strip "v" if exists
-    $current_version = get_plugin_data(WP_PLUGIN_DIR . '/' . $plugin_slug)['Version'];
+    $body = wp_remote_retrieve_body($response);
+    if (empty($body)) return $transient;
+
+    $release = json_decode($body);
+    if (!isset($release->tag_name)) return $transient;
+
+    $latest_version = ltrim((string)$release->tag_name, 'v');
+    $plugin_data = get_plugin_data($plugin_path);
+    $current_version = $plugin_data['Version'];
 
     if (version_compare($latest_version, $current_version, '>')) {
         $transient->response[$plugin_slug] = (object)[
-            'slug' => 'tumo-test-task-plugin',
+            'slug' => dirname($plugin_slug),
             'plugin' => $plugin_slug,
             'new_version' => $latest_version,
-            'package' => $release->zipball_url, // GitHub .zip URL
+            'package' => $release->zipball_url,
             'url' => $release->html_url,
         ];
     }
