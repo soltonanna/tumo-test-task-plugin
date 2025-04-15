@@ -2,7 +2,7 @@
 /*
 Plugin Name: Custom Book Plugin
 Description: Adds a "Book" custom post type with custom fields and taxonomy.
-Version: 1.1.1
+Version: 1.1.2
 Author: Anahit Sultanova
 */
 
@@ -237,6 +237,11 @@ $myUpdateChecker = \YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateCh
     __FILE__,
     'tumo-test-task-plugin'
 );
+
+$myUpdateChecker->addResultFilter(function($update, $plugin) {
+    error_log(print_r($update, true));
+    return $update;
+});
 
 // Optional: Set branch if using one
 $myUpdateChecker->setBranch('master');

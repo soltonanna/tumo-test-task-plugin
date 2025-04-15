@@ -25,3 +25,9 @@ Adds a "Book" custom post type with custom fields and taxonomy.
 
 = 1.0.3 =
 * testing 3
+
+= 1.1.1 =
+* testing 3
+
+= 1.1.2 =
+* rename the files
