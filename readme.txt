@@ -37,3 +37,6 @@ Adds a "Book" custom post type with custom fields and taxonomy.
 
 = 1.1.8 =
 * add comments
+
+= 1.1.9 =
+* last testing
