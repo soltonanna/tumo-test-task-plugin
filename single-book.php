@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-    <div class="single-book-page">
+    <div class="single-book-page aaa">
         
         <div class="top-section">
             <div class="single-book-info left-part">

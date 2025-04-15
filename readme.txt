@@ -49,3 +49,6 @@ Adds a "Book" custom post type with custom fields and taxonomy.
 
 = 1.2.2 =
 * refactor the code2
+
+= 1.2.3 =
+* refactor the code3
