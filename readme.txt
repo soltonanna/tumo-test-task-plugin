@@ -4,7 +4,7 @@ Tags: custom, update
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.0.3
+Stable tag: 1.1.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,3 +34,6 @@ Adds a "Book" custom post type with custom fields and taxonomy.
 
 = 1.1.7 =
 * testing 2
+
+= 1.1.8 =
+* add comments
