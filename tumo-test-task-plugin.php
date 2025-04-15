@@ -2,7 +2,7 @@
 /*
 Plugin Name: Custom Book Plugin
 Description: Adds a "Book" custom post type with custom fields and taxonomy.
-Version: 1.1.9
+Version: 1.2.0
 Author: Anahit Sultanova
 */
 
@@ -230,18 +230,48 @@ add_action( 'admin_enqueue_scripts', 'enqueue_admin_styles' );
 
 
 /** Checking the updates of plugin with tag  */
-require 'plugin-update-checker/plugin-update-checker.php';
+// VERSION 1:
+// require 'plugin-update-checker/plugin-update-checker.php';
 
-use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+// use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
-$myUpdateChecker = PucFactory::buildUpdateChecker(
-    'https://github.com/soltonanna/tumo-test-task-plugin/',
-    __FILE__,
-    'tumo-test-task-plugin'
-);
+// $myUpdateChecker = PucFactory::buildUpdateChecker(
+//     'https://github.com/soltonanna/tumo-test-task-plugin/',
+//     __FILE__,
+//     'tumo-test-task-plugin'
+// );
 
-$myUpdateChecker->getVcsApi()->enableReleaseAssets();
-//Set the branch that contains the stable release.
-$myUpdateChecker->setBranch('master');
-//Optional: If you're using a private repository, specify the access token like this:
+// $myUpdateChecker->getVcsApi()->enableReleaseAssets();
+// $myUpdateChecker->setBranch('master');
 // $myUpdateChecker->setAuthentication('your-token-here');
+
+// VERSION 2:
+add_filter('pre_set_site_transient_update_plugins', 'check_github_plugin_update');
+function check_github_plugin_update($transient) {
+    if (empty($transient->checked)) return $transient;
+
+    $plugin_slug = 'tumo-test-task-plugin/tumo-test-task-plugin.php';
+    $repo_api_url = 'https://github.com/soltonanna/tumo-test-task-plugin/releases/latest';
+
+    $response = wp_remote_get($repo_api_url, [
+        'headers' => ['Accept' => 'application/vnd.github.v3+json']
+    ]);
+
+    if (is_wp_error($response)) return $transient;
+
+    $release = json_decode(wp_remote_retrieve_body($response));
+    $latest_version = ltrim($release->tag_name, 'v'); // strip "v" if exists
+    $current_version = get_plugin_data(WP_PLUGIN_DIR . '/' . $plugin_slug)['Version'];
+
+    if (version_compare($latest_version, $current_version, '>')) {
+        $transient->response[$plugin_slug] = (object)[
+            'slug' => 'tumo-test-task-plugin',
+            'plugin' => $plugin_slug,
+            'new_version' => $latest_version,
+            'package' => $release->zipball_url, // GitHub .zip URL
+            'url' => $release->html_url,
+        ];
+    }
+
+    return $transient;
+}
